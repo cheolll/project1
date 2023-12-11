@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>info</title>
+</head>
+<body>
+	<h1>내 정보 페이지 </h1>
+	<h2>이전페이지로 </h2>
+	<h2>메인 페이지</h2>
+	<header>
+		<h1>정보 보기 페이지</h1>
+	</header>
+	<section>
+		<h2>개인 정보</h2>
+		<h3>회원 정보 수정 </h3>
+		<table th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="700">
+		<tr>
+			<th bgcolor="orange" width="100">id</th>
+			<td th:text="${member.id}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="200">name</th>
+			<td th:text="${member.name}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="150">nickName</th>
+			<td th:text="${member.nickName}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="150">전화번호</th>
+			<td th:text="${member.phoneNumber}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="100">생년월일</th>
+			<td th:text="${#dates.format(member.birth, 'yyyy-MM-dd')}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="100">이메일</th>
+			<td th:text="${member.email}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="100">도메인</th>
+			<td th:text="${member.domain}"></td>
+		</tr>
+		<tr>
+			<th bgcolor="orange" width="100">주소</th>
+			<td th:text="${member.addr}"></td>
+		</tr>
+	</table>-
+
+</section>
+
+
+
+</body>
+</html>

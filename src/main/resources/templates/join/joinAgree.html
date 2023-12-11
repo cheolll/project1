@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<title>회원가입 &lt; E1I4S </title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://ssl.nexon.com/s3/membership/global.css" />
+	<link rel="stylesheet" type="text/css" href="https://ssl.nexon.com/s3/membership/join2.css" />
+
+	<script type="text/javascript">
+		<!--
+			document.domain = 'nexon.com';
+		-->
+	</script>
+
+
+
+	<script type="text/javascript">
+		try {
+			(function (w, d, s, l, i) {w[l] = w[l] || []; w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'}); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);})(window, document, 'script', 'dataLayer', 'GTM-PSZ9ZLQ');
+		}
+		catch (ex) { }
+	</script>
+
+	<script type="text/javascript" src="https://ssl.nexon.com/s1/jquery/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="https://ssl.nexon.com/s1/jquery/jquery.ui-1.8.7.min.js"></script>
+	<script type="text/javascript" src="https://ssl.nexon.com/s1/global/ngb_head.js" charset="euc-kr"></script>
+	<script type="text/javascript" src="/js/MemberUtil.js?v=638370520031499030"></script>
+	<script type="text/javascript" src="../js/jquery.alphanumeric.js"></script>
+	<script type="text/javascript" src="../js/jquery.center.js"></script>
+	<script type="text/javascript" src="../js/jquery.popupWindow.js"></script>
+</head>
+
+<script type="text/javascript">
+	var a2sObject = null;
+	var a2sContentsOpt = null;
+	var a2sTpaTag = null;
+
+	$(function () {
+		PreventInput.PreventRefreshShortCut();
+
+		a2sTpaTag = MemberA2S.GetTPACode(0, '_');
+
+		$("[a2sObject],[a2soptGnb],[a2sopt],[a2soptCheck]").click(
+			function (event) {
+				if ($(this).is("[a2soptGnb]") == true) {
+
+					MemberA2S.Click(a2sObject, "Join" + $(this).attr("a2soptGnb"));
+
+				}
+				else if ($(this).is("[a2sopt]") == true) {
+					MemberA2S.Click(a2sObject, $(this).attr("a2sopt"));
+				}
+				else if ($(this).is("[a2soptCheck]") == true) {
+					var chkBox = $(this).attr("type") == "checkbox" ? $(this) : $(this).children();
+
+					if (chkBox.attr("type") == "checkbox") {
+						if (chkBox.is(":checked") == true)
+							MemberA2S.Click(a2sObject, $(this).attr("a2soptCheck"));
+						else
+							MemberA2S.Click(a2sObject, $(this).attr("a2soptUncheck"));
+					}
+					else {
+						MemberA2S.Click(a2sObject, $(this).attr("a2soptCheck"));
+					}
+				}
+			}
+		);
+	});
+</script>
+
+<body>
+	<form method="post" action="./join.aspx?accesscode=136" onsubmit="javascript:return WebForm_OnSubmit();"
+		id="m_form">
+
+		<script type="text/javascript">
+			// 세션에 값이 있으면 돌려보내기
+			//<![CDATA[
+			function WebForm_OnSubmit() {
+
+				$(':hidden.pwdplain').each(function () {$(this).val($($('#' + $(this).attr('id').replace('_pass', ''))[0]).val());});
+				$(':hidden.pwdhash').each(function () {$(this).val(NgbSecurity.HashString($($('#' + $(this).attr('id').replace('_pass', ''))[0]).val()));});
+				$(':password').each(function () {$(this).val('');});
+
+				return true;
+			}
+//]]>
+		</script>
+
+		<div class="wrapper">
+			<div class="header">
+				<div class="headerDeco">
+					<h1><a href="/" a2soptGnb="GnbLogo"><img
+								src="/img/logo2.png" width="157"
+								height="19" alt="E1I4S" /></a></h1>
+					<ul class="headerNav">
+						<li><a href="/">메인 홈페이지</a> <!-- header 메인페이지 이동-->
+						</li>
+							<a href="#" onclick="javascript:NXMember.GoLogin(); return false;">로그인</a> <!-- header - 로그인 페이지 이동-->
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="join2Cnts">
+				<div class="selectTpa">
+					<p class="txt1"><img src="https://ssl.nexon.com/S2/membership/2011/join/img_welcome_tpa.png"
+							width="360" height="182" alt="넥슨에 오신 것을 환영합니다!"></p>
+					<ul>
+						<li>
+							<div>
+								<!-- 약관에 관한 문구 -->
+								<h1> 약관 </h1>
+							</div>
+						</li>
+						<li>
+							<a href="join" id="join" name="join">동의합니다.</a>
+						</li>
+						<li>
+							<a href="/">비동의 - 메인페이지 이동</a>
+						</li>
+					</ul>
+				</div>
+
+				<script type="text/javascript">
+					// A2S Setup
+					a2sObject = "MEMBERS_JOIN";
+					a2sContentsOpt = "JoinSelectPage";	// MEMBERSJOIN_A470_A914
+
+
+				</script>
+
+			</div>
+
+
+			<script type="text/javascript">
+				$(function () {
+					$(".company > h3 > a").toggle(
+						function () {
+							$(".company > h3").attr("class", "up");
+							$(".company > ul").css("display", "block");
+						},
+						function () {
+							$(".company > h3").attr("class", "down");
+							$(".company > ul").css("display", "none");
+						}
+					);
+				});
+			</script>
+
+		<!-- footer str -->
+		<div id="footer" style="">
+			<div class="div_inner">
+				<div class="footer_info">
+					<ul>
+						<!--페이지 아래 태그 삭제-->
+					</ul>
+					<p>
+						<span>(주)E1I4S 대표이사</span>
+						<span style="margin-left:5px;">윤범헌 김예림 변장철 송경호 박현지</span>
+						<span style="margin-left:5px;">전화: 0000-0000</span>
+						<span>팩스:0502-258-8322</span>
+						<br />
+						<span>E-mail:xxxxxxx@xxxxxx.com</span>
+						<span style="margin-left:5px;">사업자등록번호 : xxx-xx-xxxxx호</span>
+						<span style="margin-left:5px;">통신판매업 신고번호 : 제2013-경기성남-1659호</span>
+					</p>
+					<span class="copyright">ⓒ NEXON Korea Corporation All Rights Reserved.</span>
+					<span class="footer_logo">
+						<a href="/" target="_blank"><img src="resources/img/zzzz.png" alt="" /></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- footer end -->
+
+		<script type='text/javascript'>
+			$('[memberbutton=true]').click(
+				function (event) {
+					if ($(this).data('validatorCol') != null) {
+						for (var i = 0; i < $(this).data('validatorCol').length; i++) {
+							var retMsg = $(this).data('validatorCol')[i].validator();
+							if (retMsg != null) {
+								alert(retMsg);
+								if ($(this).data('validatorCol')[i].id != null)
+									$('#' + $(this).data('validatorCol')[i].id).focus();
+								return false;
+							}
+						}
+					}
+
+					if ($(this).data('postbackHandler') != null)
+						$(this).data('postbackHandler').handler();
+					else {
+						if ($(this).attr('iscrosspostback') == 'true')
+							location.href = $('#' + $(this).attr('id') + '_crosspostback').attr('href');
+						else
+							__doPostBack($(this).attr('name'), '');
+					}
+
+					return false;
+				}
+			);
+		</script>
+	</form>
+	<script type="text/javascript" src="https://ssl.nexon.com/s1/global/ngb_bodyend.js" charset="euc-kr"></script>
+
+	<script type="text/javascript">
+		// A2S Setup
+		$(function () {
+			if (a2sObject != null && a2sContentsOpt != null) {
+				MemberA2S.Contents(a2sObject, a2sContentsOpt);
+			}
+		});
+	</script>
+</body>
+
+</html>

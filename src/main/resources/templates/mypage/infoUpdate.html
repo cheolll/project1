@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>회원정보 수정 페이지</title>
+	<link rel="stylesheet" type="text/css" href="/css/join.css">
+	<script type="text/javascript" src="/js/mypage.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<!--<script src="https://code.jquery.com/jquery-3.7.1.js"></script>-->
+	<script>
+		/* 날짜 선택기 */
+		$(function () {
+			$("#testDatepicker").datepicker({
+				showOn: "both",
+				dateFormat: "yy-MM-dd",
+				yearRange: "c-100:c",
+				changeYear: true,
+				changeMonth: true,
+				dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+				dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'],
+				monthNamesShort: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+				monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+			});
+		});
+	</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function (data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+					var extraAddr = ''; // 참고항목 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+					if (data.userSelectedType === 'R') {
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraAddr !== '') {
+							extraAddr = ' (' + extraAddr + ')';
+						}
+						// 조합된 참고항목을 해당 필드에 넣는다.
+						document.getElementById("extraAddress").value = extraAddr;
+
+					} else {
+						document.getElementById("extraAddress").value = '';
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('postcode').value = data.zonecode;
+					document.getElementById("address").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("detailAddress").focus();
+
+				}
+			}).open();
+		}
+	</script>
+
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<div class="headerDeco">
+				<h1><a href="/" a2soptGnb="GnbLogo"><img src="/img/logo1.png" width="120" height="120"
+							alt="E1I4S" /></a></h1>
+				<ul class="headerNav">
+					<li><a href="/">메인 홈페이지</a> <!-- header 메인 페이지 이동-->
+					</li>
+					<a href="#" onclick="">로그 아웃</a> <!-- header - 로그인 페이지 이동-->
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div>
+			<form name="infoUpdateForm" th:action="infoUpdateSuccess" method="post">
+				<input type="hidden" id="id" name="id" th:value="${member.id}"><br>
+
+				<input type="hidden" id="password" name="password" th:value="${member.password}"><br>
+
+				<input type="hidden" id="name" name="name" th:value="${member.name}"><br>
+
+				<label for="nickName">Nickname:</label> <!-- 글자수만 제한 2~20 -->
+				<input type="text" id="nickName" name="nickName" th:value="${member.nickName}" required><br>
+
+				<label for="phoneNumber">Phone Number:</label>
+				<input type="tel" id="phoneNumber" name="phoneNumber" th:value="${member.phoneNumber}" required><br>
+
+				<!-- datepicker 사용시 자동으로 Date 형식으로 데이터 전달 -->
+				<label for="birth">Date of Birth:</label>
+				<input type="text" id="testDatepicker" name="birth" placeholder="YYYY-MM-DD" 
+						th:value="${#dates.format(member.birth, 'yyyy-MM-dd')}" required><br>
+
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" th:value="${member.email}" required><br>
+
+				<label for="domain">Domain:</label>
+				<input type="text" id="domain" name="domain" th:value="${member.domain}"><br>
+				
+				
+				<input type="text" id="addrPre" th:value="${member.addr}"><br>
+				
+				<!-- https://postcode.map.daum.net/guide -->
+
+				<input type="text" id="postcode" placeholder="우편번호" value="">
+				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" id="address" placeholder="주소" value=""><br>
+				<input type="text" id="detailAddress" placeholder="상세주소" value="">
+				<input type="text" id="extraAddress" placeholder="참고항목" value=""><br>
+
+				<script>
+					window.onload = function(){
+						let addrPre = document.getElementById('addrPre').value;
+							
+						console.log(addrPre);
+						
+						let addrPre1 = addrPre.split('/', 4);
+
+	
+						$("#postcode").val(addrPre1[0].trim());
+						$("#address").val(addrPre1[1].trim());
+						$("#detailAddress").val(addrPre1[2].trim());
+						$("#extraAddress").val(addrPre1[3].trim());
+					}
+					
+					$(document).ready(function () {
+						
+						function updateCombinedAddress() {
+							let address1 = $('#postcode').val();
+							let address2 = $('#address').val();
+							let address3 = $('#detailAddress').val();
+							let address4 = $('#extraAddress').val();
+
+							var combinedAddress = address1 + "/" + address2 + "/" + address3 + "/" + address4;
+							console.log();
+
+							$("#addr").val(combinedAddress.trim());
+							}
+
+						// Call the function when any of the input fields change
+						$('#postcode, #address, #detailAddress, #extraAddress').on('input', function () {
+							updateCombinedAddress();
+						});
+
+						// Initial update on page load
+						updateCombinedAddress();
+					});
+
+				</script>
+
+				<input type="hidden" id="addr" name="addr"><br>
+
+
+				<input type="hidden" id="point" name="point" th:value="${member.point}" /><br />
+
+				<input type="hidden" id="totalPoint" name="totalPoint" th:value="${member.totalPoint}"><br>
+
+				<input type="button" value="등록" onclick="checkInfoUpdate()" />
+				<input type="button" value="취소" onclick="/mypage/mypage" />
+			</form>
+		</div>
+
+		<!-- footer str -->
+		<div id="footer" style="">
+			<div class="div_inner">
+				<div class="footer_info">
+					<ul>
+						<!--페이지 아래 태그 삭제-->
+					</ul>
+					<p>
+						<span>(주)E1I4S 대표이사</span>
+						<span style="margin-left:5px;">윤범헌 김예림 변장철 송경호 박현지</span>
+						<span style="margin-left:5px;">전화: 0000-0000</span>
+						<span>팩스:0502-258-8322</span>
+						<br />
+						<span>E-mail:xxxxxxx@xxxxxx.com</span>
+						<span style="margin-left:5px;">사업자등록번호 : xxx-xx-xxxxx호</span>
+						<span style="margin-left:5px;">통신판매업 신고번호 : 제2013-경기성남-1659호</span>
+					</p>
+					<span class="copyright">ⓒ NEXON Korea Corporation All Rights Reserved.</span>
+					<span class="footer_logo">
+						<a href="../" target="_blank"><img src="/img/hedgehog.png" alt="" /></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- footer end -->
+	</div>
+
+</body>
+
+</html>

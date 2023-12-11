@@ -1,0 +1,241 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>신고 | 고객지원 | 메이플스토리</title>
+	<link rel="stylesheet" href="/css/sub_new.css" type="text/css" />
+	<link rel="stylesheet" href="https://lwres.nexon.com/css/maplestory/jquery.mCustomScrollbar.css" type="text/css" />
+	<script src="https://ssl.nexon.com/s1/p2/ps.min.js" charset="utf-8" data-name="PS" data-ngm="true" data-nxlogin="true"></script>
+	<script src="https://ssl.nexon.com/s1/global/ngb_head.js"></script>
+	<script src="https://lwres.nexon.com/js/maplestory/jquery-1.12.4.min.js" type="text/javascript"></script>
+	<script src="https://lwres.nexon.com/js/maplestory/jquery-ui.js"></script>
+	<script src="https://lwres.nexon.com/js/maplestory/sub_new.js" type="text/javascript"></script>
+	<script src="https://lwres.nexon.com/js/maplestory/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
+	<script src="/js/common.js?v=202312010650"></script>
+	<script src="/js/webboard.js?v=202312010650"></script>
+	<link rel="stylesheet" href="/css/trading_board.css" type="text/css" />
+	<script>
+		var COMMON = (function () {
+			var instance;
+			function initiate() {
+				return {
+					site: 'nope',
+					domain: 'maplestory.nexon.com',
+					url: 'https://maplestory.nexon.com/Support/BugReport/Create',
+					oid: '286039160',
+					isLogin: true,
+					isMembership: true,
+					isParentLogin: true,
+					isParentMembershipLogin: true,
+					isChannelingNotAgree: false,
+					articleSearchDescriptor: {},
+					maxTitleLength: 35,
+					maxCommentLength: 200
+				};
+			}
+
+			if (!instance) instance = initiate();
+			return instance;
+		}());
+
+		$(window).load(function () {
+			var commonMessage = '';
+			if (commonMessage !== '')
+				alert(commonMessage);
+		});
+	</script>
+	<link rel="stylesheet" href="https://lwres.nexon.com/css/maplestory/Common/Editor/editor.css" type="text/css" media="all" />
+	<script src="https://lwres.nexon.com/js/maplestory/Common/Editor/imageEditorUtil.js"></script>
+	<script src="https://lwres.nexon.com/js/maplestory/Common/Editor/ngb_Editor.js"></script>
+	<style>
+		.selectImageuploader {
+			z-index: 99;
+		}
+		#inqTa {
+			resize: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<!-- header str -->
+		<div id="header_support">
+			<div class="sub_banner_wrap">
+				<img src="https://lwi.nexon.com/maplestory/common/visual/sub_visual_support.jpg" alt="" /> <!-- 상단 배경 -->
+			</div>
+			<div class="top_menu_wrap">
+				<div class="div_inner">
+					<h1 class="logo"><a href="/"><img src="/img/logo3n.png" alt="" /></a></h1>
+					<ul class="top_menu">
+						<li>
+							<a href="/pointshop/pointshop">포인트상점</a>
+							<ul>
+								<li><a href="/pointshop/pointshop">상품 목록 리스트</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="/news/notice">뉴스</a>
+							<ul>
+								<li><a href="/news/notice">공지사항</a></li>
+								<li><a href="/news/event">이벤트</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="/guide/guide">가이드</a>
+							<ul>
+								<li><a href="/guide/guide">기초 가이드</a></li>
+								<li><a href="/guide/character">캐릭터 소개</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="/rank/rank">랭킹</a>
+							<ul>
+								<li><a href="/rank/rank">랭킹 게시판</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="/board/free_board">커뮤니티</a>
+							<ul>
+								<li><a href="/board/free_board">자유게시판</a></li>
+								<li><a href="/board/trading_board">거래 게시판</a></li>
+								<li><a href="/board/tip_know-how">팁 OR 노하우</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="/support/report_1_1">고객지원</a>
+							<ul>
+								<li><a href="/support/report_1_1"></span>1:1문의</a></li>
+								<li><a href="/support/report_bug">신고</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="div_inner">
+				<div class="board_name">
+					<span class="sub_logo">
+						<img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/category_icon22.png" alt="">
+					</span>
+					<h2>고객지원</h2>
+				</div>
+				<div class="sub_login_wrap">
+					<div class="sub_login_con">
+						<div class="sub_login_info">
+							<div class="sub_login_info_wrap">
+								<span class="sub_user_name">아이디</span>
+								<span class="sub_user_word">리부트</span>
+								<span class="sub_user_job">아델</span>
+							</div>
+						</div>
+						<ul class="id_set_two">
+							<li><a href="/mypage/mypage">마이메이플</a></li> <!-- 마이페이지로 수정 -->
+							<li><a href="#" target="_blank">내가 쓴 글</a></li>
+						</ul>
+						<span class="sub_log_out">
+							<a href="/logout" onmouseover="ch_png_on(this)" onmouseout="ch_png_off(this)">
+								<img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/sub_logout_off.png" alt="">
+							</a>
+						</span>
+					</div>
+					<span class="sub_login_char"> <!-- 로그인시 캐릭터 -->
+						<img src="https://avatar.maplestory.nexon.com/Character/180/KIABPANLGNMGOEGBKBDJOCPMICMPEJPEKKNKGHLFABNMAMIMBKIMOALGMDMDEFJEPKKLINNDDPHJGLGFNKHAGJFBNJFICNJAOFODEPMKJACNJDCCPJBPAIPLEJAFBCBIFKIEJKJPHMCOGOIBHHHJCJOBAELENILKLDOLPBPBGPOJKEJGBEMEBKBOPKHDPFIGABJMAIHOMFADCKJOLLFGHLCAAHJMIFPLOIHKEKFINIOKMNJBGHBJMHOIEHDMABHE.png" onerror="this.src='https://ssl.nexon.com/s2/game/maplestory/renewal/common/none_char.png'" alt="">
+					</span>
+				</div>
+				<script>
+					$(function () {
+						login_after_info();
+					});
+				</script>
+				<span class="game_start">
+					<div class="gm_str_main_wrap">
+						<a href="#" onclick="gtag_report_conversion(); PLATFORM.LaunchGame('45'); gtag('event', '버튼클릭', { 'event_category': '게임시작', 'event_label': '전체페이지' }); gameStart_Criteo();">
+							<img class="main_str_btn" src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/mp_start_btn_sub.png" alt="" />
+						</a>
+					</div>
+				</span>
+			</div>
+			<div class="top_menu_bg"> <!-- 배너에 상세 페이지들 나오는 뒷 배경 -->
+				<div class="div_inner"
+					style="background:url('https://ssl.nexon.com/s2/game/maplestory/renewal/common/top_menu_line.png') left top no-repeat;">
+				</div>
+			</div>
+		</div>
+		<!-- header end -->
+		<div class="mnb_wrap">
+			<div class="div_inner2">
+				<ul class="mnb_list"><!-- 1:1 / 신고 tab -->
+					<li class=active><a href="/support/report_1_1"></span>1:1 문의</a></li>
+					<li class=active><a href="/support/report_bug">신고</a></li>
+					<li class=active><a href="/support/report_1_1_list">문의 내역</a></li>
+					<li class=active><a href="/support/report_bug_list">신고 내역</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="mnb_blank"></div>
+		<!-- container str -->
+		<div id="container">
+			<!-- div_inner str -->
+			<div class="div_inner">
+				<!-- notice_wrap str -->
+				<div class="contents_wrap2">
+					<h1 class="con_title"> 
+						문의 내역
+					</h1>
+					<h3>문의 내용 확인 > 제목 클릭</h3>
+					<div id="div_tb" th:align="center">
+						<table th:width="700">
+							<tr>
+								<th width="100">번호</th>
+								<th width="200">제목</th>
+								<th width="150">작성일</th>
+							</tr>
+							<tr th:each="inquery, state:${inqueryList}">
+								<td th:text="${inquery.inquerySeq}"></td>
+								<td><a th:text="${inquery.inqueryTitle}" th:href="@{/support/report_1_1_view(inquerySeq=${inquery.inquerySeq})}"></a></td>
+								<td th:text="${#dates.format(inquery.inqueryCreateDate, 'yy년/MM월dd일 HH:mm')}"></td>
+							</tr>
+						</table>
+						<br>
+						<th:block th:if="${!inqueryList.empty}" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+							<a th:if="${page != nowPage}" th:href="@{/support/report_1_1_list(page = ${page - 1})}" th:text="${page}"></a>
+							   	<strong th:if="${page == nowPage}" th:text="${page}"style="color:red"></strong>
+						</th:block>
+					</div>
+					<br>
+				</div>
+				<!-- notice_wrap end -->
+			</div>
+			<!-- div_inner end -->
+		</div>
+		<!-- container end -->
+		<!-- footer str -->
+		<div id="footer" style="">
+			<div class="div_inner">
+				<div class="footer_info">
+					<ul>
+						<!--페이지 아래 태그 삭제-->
+					</ul>
+					<p>
+						<span>(주)E1I4S 대표이사</span>
+						<span style="margin-left:5px;">윤범헌 김예림 변장철 송경호 박현지</span>
+						<span style="margin-left:5px;">전화: 0000-0000</span>
+						<span>팩스:0502-258-8322</span>
+						<br />
+						<span>E-mail:xxxxxxx@xxxxxx.com</span>
+						<span style="margin-left:5px;">사업자등록번호 : xxx-xx-xxxxx호</span>
+						<span style="margin-left:5px;">통신판매업 신고번호 : 제2013-경기성남-1659호</span>
+					</p>
+					<span class="copyright">ⓒ NEXON Korea Corporation All Rights Reserved.</span>
+					<span class="footer_logo">
+						<a href="/" target="_blank"><img src="/img/zzzz.png" alt="" /></a>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- footer end -->
+	</div>
+
+</body>
+
+</html>

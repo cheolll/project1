@@ -1,0 +1,132 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<!--<link rel="stylesheet" type="text/css" href="/css/home.css" />-->
+</head>
+
+<body>
+	
+	<div class="wrapper">
+		<div class="header">
+		<div class="headerDeco">
+			<div>
+				<a href="/">
+					<img src="/img/logoMypage.jpg" width="700" height="200px" alt="E1I4S"/>
+				</a>
+			</div>
+			<ul class="headerNav">
+				<li><a href="/">메인 홈페이지</a> <!-- header 메인 페이지 이동--></li>
+				<li><a href="/logout">로그아웃</a> <!-- header - 로그인 페이지 이동--></li>
+			</ul>
+		</div>
+	</div>
+		<div id="contents">
+			<div class="topNav">
+				<h2 class="myPage"><a th:href="@{/mypage/info}" title="내정보 관리"><span>내정보 관리</span></a></h2>
+				<ul class="myPage">
+					<li class="myPage1"><a th:href="@{/mypage/infoUpdate}" title="회원정보 변경"><span>개인정보 변경</span></a>
+					</li>
+					<li class="myPage3"><a href="/mypage/infoPwdUpdate" title="비밀번호 변경"><span>비밀번호 변경</span></a>
+					</li>
+					<li class="myPage5"><a href="/mypage/deleteMember" title="회원탈퇴"><span>회원탈퇴</span></a></li>
+				</ul>
+				<h2 class="security"><a href="/" title="내정보 보안설정"><span>고객센터</span></a>
+				</h2>
+				<ul class="security">
+					<li class="security1"><a href="/" title="로그인관리"><span>로그인관리</span></a>
+					</li>
+					<li class="security2"><a href="/security/idblock.aspx" title="아이디생성잠금"><span>아이디생성잠금</span></a>
+					</li>
+					<li class="security3"><a href="/security/cashblock.aspx" title="넥슨캐시 보안설정"><span>넥슨캐시
+								보안설정</span></a></li>
+					<li class="security4"><a href="/security/authblock.aspx" title="본인인증설정"><span>본인인증설정</span></a>
+					</li>
+				</ul>
+				<h2 class="nxCash"><a href="/cash/chargeguide.aspx" title="넥슨캐시"><span>포인트</span></a></h2>
+				<ul class="nxCash">
+					<li class="nxCash1"><a href="/cash/chargeguide.aspx" title="충전수단안내"><span>포인트 획득 방법</span></a></li>
+					<li class="nxCash2"><a href="/cash/chargelist.aspx" title="충전/사용/철회내역"><span>포인트 이용 내역</span></a></li>
+				</ul>
+			</div>
+			<div class="homeFaqSec">
+				<h3><img src="https://ssl.nexon.com/S2/membership/2011/home/stit_faq.gif" width="77" height="14"
+						alt="자주묻는질문" /></h3>
+				<ul class="faqBest5">
+					<li class="faqList1 on">
+						<h4><a href="#" name="faqService">내정보</a></h4>
+						<div class="faqBest5List">
+							<p>고객님께서 자주 찾으시는 질문을 모았습니다.</p>
+							<ol>
+								<li><a href="http://help.nexon.com" target="_blank"><span>1</span> [회원탈퇴] 기존ID 회원탈퇴를
+										하고 싶어요.</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>2</span> [회원가입] 넥슨ID는 몇 개나
+										만들 수 있나요?</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>3</span> [회원탈퇴] 이메일ID
+										회원탈퇴를 하고 싶어요.</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>4</span> [넥슨 OTP] U-OTP
+										서비스 종료로 인해 보호모드가 적용되었습니다. 왜 그런가요?</a></li>
+							</ol>
+							<span class="moreBt"><a href="http://help.nexon.com" target="_blank"
+									title="내정보 도움말 더보기"><img
+										src="https://ssl.nexon.com/S2/membership/2011/button/bt_more.gif" width="36"
+										height="10" alt="내정보 도움말 더보기" /></a></span>
+						</div>
+					</li>
+					<li class="faqList2">
+						<h4><a href="#" name="faqService">포인트</a></h4>
+						<div class="faqBest5List" style="display:none;">
+							<p>고객님께서 자주 찾으시는 질문을 모았습니다.</p>
+							<ol>
+								<li><a href="http://help.nexon.com" target="_blank"><span>1</span> [결제방법] 결제한도 초과라고
+										나옵니다.</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>2</span> [결제방법] 넥슨캐시를 다른
+										사람에게 주고 싶어요.</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>3</span> [결제방법] 넥슨캐시를 환불
+										받을 수 있나요?</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>4</span> [결제방법] 청약 철회 절차는
+										어떻게 되나요?</a></li>
+								<li><a href="http://help.nexon.com" target="_blank"><span>5</span> [결제차단/해제] "넥슨캐시
+										사용이 불가능 하도록 설정되어 있습니다" 메시지가 나타나요.</a></li>
+							</ol>
+							<span class="moreBt"><a href="http://help.nexon.com" target="_blank"
+									title="넥슨캐시 도움말 더보기"><img
+										src="https://ssl.nexon.com/S2/membership/2011/button/bt_more.gif" width="36"
+										height="10" alt="넥슨캐시 도움말 더보기" /></a></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer str -->
+	<div id="footer" style="">
+		<div class="div_inner">
+			<div class="footer_info">
+				<ul>
+					<!--페이지 아래 태그 삭제-->
+				</ul>
+				<p>
+					<span>(주)E1I4S 대표이사</span>
+					<span style="margin-left:5px;">윤범헌 김예림 변장철 송경호 박현지</span>
+					<span style="margin-left:5px;">전화: 0000-0000</span>
+					<span>팩스:0502-258-8322</span>
+					<br />
+					<span>E-mail:xxxxxxx@xxxxxx.com</span>
+					<span style="margin-left:5px;">사업자등록번호 : xxx-xx-xxxxx호</span>
+					<span style="margin-left:5px;">통신판매업 신고번호 : 제2013-경기성남-1659호</span>
+				</p>
+				<span class="copyright">ⓒ NEXON Korea Corporation All Rights Reserved.</span>
+				<span class="footer_logo">
+					<a href="/" target="_blank"><img src="resources/img/zzzz.png" alt="" /></a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<!-- footer end -->
+	</div>
+</body>
+
+</html>
