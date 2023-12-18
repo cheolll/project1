@@ -11,19 +11,24 @@ import com.web.domain.Member;
 import com.web.domain.Report;
 
 public interface SupportService {
-	public static final String INQUERY_IMAGE_REPO = "D:\\resource\\spring_boot\\workspace\\E1I4S\\src\\main\\resources\\static\\inqueryImgFolder";
-	public static final String REPORT_IMAGE_REPO = "D:\\resource\\spring_boot\\workspace\\E1I4S\\src\\main\\resources\\static\\reportImgFolder";
+	// 문의 내용 작성시 정보를 받아 레코드 생성
 	public void insertInquery(MultipartHttpServletRequest mul);
-	public void getInqueryList(Model model, Inquery inquery, Pageable pageable, Member member);
-	
 	public void insertReport(MultipartHttpServletRequest mul);
+	// 문의 내역 html 을 열 때 자신이 작성한 문의 내역을 불러옴
+	public void getInqueryList(Model model, Inquery inquery, Pageable pageable, Member member);
 	public void getReportList(Model model, Report report, Pageable pageable, Member member);
-	
+	// 관리자페이지에서 문의 종류에 따라 페이징
+	// 3개의 리스트를 html 에 추가
 	public void find3List(Inquery inquery, Report report, Pageable pageable1, Pageable pageable2, Pageable pageable3, 
 						  String searchKeyword1, String searchKeyword2, String searchKeyword3, Model model);
-	
+	// 고객센터 완료목록
+	// 2개의 리스트를 html 에 추가
+	public void find2List(Inquery inquery, Report report, Pageable pageable1, Pageable pageable3, String searchKeyword1, String searchKeyword3, Model model);
+	// 문의 뷰 페이지에서 문의 번호(SEQ) 값으로 정보 띄우기
 	public void getInqueryById(Long inquerySeq, Model model);
 	public void getReportById(Long reportSeq, Model model);
+	// 관리자 페이지에서 확인 클릭 시 자동 답변
 	public void answerInq(Long inquerySeq);
 	public void answerRep(Long reportSeq);
+	
 }

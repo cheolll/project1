@@ -28,18 +28,38 @@ public class SecurityConfig {
 			.and()
 			.authorizeRequests()
 			.antMatchers("/").permitAll()
-			.antMatchers("/mypage/**").hasRole("USER") // 로그인만 접근
-			.antMatchers("/support/**").authenticated() // 로그인만 접근
-			.antMatchers("/admin/**").hasRole("ADMIN") // 권한 설정 후 재설정 할 예정 
-			.antMatchers("/pointshop/product").hasAnyRole("USER", "ADMIN") // 권한 설정 후 재설정 할 예정
-			.antMatchers("/pointshop/productInsert").hasRole("ADMIN") // 권한 설정 후 재설정 할 예정
-			.antMatchers("/pointshop/productModify").hasRole("ADMIN") // 권한 설정 후 재설정 할 예정
+			.antMatchers("/mypage/**").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/support/**").hasRole("USER")
+			.antMatchers("/board/board").permitAll()						// board 권한
+			.antMatchers("/board/board_update").hasAnyRole("USER", "ADMIN") 
+			.antMatchers("/board/board_view").hasAnyRole("USER", "ADMIN")
+			.antMatchers("/board/board_write").hasAnyRole("USER", "ADMIN") 
+			.antMatchers("/board/replyModify").hasAnyRole("USER", "ADMIN") 
+			.antMatchers("/rank/**").permitAll()							// 뉴스 랭킹 가이드
+			.antMatchers("/guide/character").permitAll()					// 뉴스 랭킹 가이드
+			.antMatchers("/guide/characterView").permitAll()				// 뉴스 랭킹 가이드
+			.antMatchers("/guide/guide").permitAll()						// 뉴스 랭킹 가이드
+			.antMatchers("/guide/characterUpdateForm").hasRole("ADMIN")		// 뉴스 랭킹 가이드
+			.antMatchers("/guide/characterWriteForm").hasRole("ADMIN")		// 뉴스 랭킹 가이드
+			.antMatchers("/guide/guideUpdateForm").hasRole("ADMIN")			// 뉴스 랭킹 가이드
+			.antMatchers("/guide/guideWriteForm").hasRole("ADMIN")			// 뉴스 랭킹 가이드
+			.antMatchers("/news/notice").permitAll()						// 뉴스 랭킹 가이드
+			.antMatchers("/news/noticeView").permitAll()					// 뉴스 랭킹 가이드
+			.antMatchers("/news/noticeWriteForm").hasRole("ADMIN")			// 뉴스 랭킹 가이드
+			.antMatchers("/news/noticeUpdateForm").hasRole("ADMIN")			// 뉴스 랭킹 가이드
+			.antMatchers("/admin/**").hasRole("ADMIN") 	
+			.antMatchers("/pointshop/pointshop").permitAll()				// 다
+			.antMatchers("/pointshop/product").permitAll()  				// 다
+			.antMatchers("/pointshop/popup").hasAnyRole("USER", "ADMIN") 				// 다
+			.antMatchers("/pointshop/purchaseHistory").hasAnyRole("USER", "ADMIN") 				// 다
+			.antMatchers("/pointshop/productInsert").hasRole("ADMIN")
+			.antMatchers("/pointshop/productModify").hasRole("ADMIN")
 			.and()
 			.formLogin()
 			.loginPage("/login")// 이쪽 페이지로 이동함
 			.defaultSuccessUrl("/")
 			.loginProcessingUrl("/login")	// 호출시 비밀번호 인증 페이지 호출
-			.usernameParameter("id")
+			.usernameParameter("id") 
 			.passwordParameter("password")
 			.and()
 			.sessionManagement()

@@ -10,6 +10,8 @@ import com.web.domain.Report;
 public interface ReportRepository extends JpaRepository<Report, Long>{
 	Page<Report> findByReportWriter(Pageable pageable, String userId);
 	Page<Report> findByReportTitleContainingAndReportAnswerIsNull(Pageable pageable, String searchKeyword3);
+	Page<Report> findByReportTitleContainingAndReportAnswerIsNotNull(Pageable pageable, String searchKeyword3);
 	Page<Report> findByReportAnswerIsNull(Pageable pageable);
+	Page<Report> findByReportAnswerIsNotNull(Pageable pageable);
 }
   

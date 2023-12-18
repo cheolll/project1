@@ -15,9 +15,13 @@
 	<script src="https://lwres.nexon.com/js/maplestory/jquery-1.12.4.min.js" type="text/javascript"></script>
 	<script src="https://lwres.nexon.com/js/maplestory/jquery-ui.js"></script>
 	<script src="https://lwres.nexon.com/js/maplestory/index.js" type="text/javascript"></script>
-	<script src="https://lwres.nexon.com/js/maplestory/jquery.mCustomScrollbar.concat.min.js"
-		type="text/javascript"></script>
+	<script src="https://lwres.nexon.com/js/maplestory/jquery.mCustomScrollbar.concat.min.js" type="text/javascript"></script>
 </head>
+<style>
+	body {
+		background: #f2f2f2;
+	}
+</style>
 <body>
 	<script>
 		$(document).ready(function () {
@@ -31,6 +35,44 @@
 			});
 		});
 	</script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		function checkLogin() {
+			const member = /*[[${member}]]*/;
+			if(member != null){
+				window.open('/game/game', '룰렛', "width=400, height=500, left=800, top=200");
+			} else{
+				alert("로그인 하셈 ㅋ")
+			}
+		}   
+	$(document).ready(function () {
+		const member = /*[[${member}]]*/;
+		let gender = "";
+		if(member != null){
+			const memberGenderNum = member.socialSecuNum;
+			console.log(memberGenderNum);
+			console.log(memberGenderNum.substr(6,1));
+			const genderNum = memberGenderNum.substr(6,1);
+			if(genderNum == 1 || genderNum == 3){
+				gender = "m";
+			} else if(genderNum == 2 || genderNum == 4){
+				gender = "w";
+			}
+		}
+		var h ="";
+		console.log(gender);
+		if(gender =='m'){
+			console.log("남자")
+			h = "<img src=/img/main/man.png/>"
+			$('.none_char_bg').html(h);
+		} else {
+			console.log("여자")
+			h = "<img src=/img/main/woman.png/>"
+			$('.none_char_bg').html(h);
+		}
+	});
+	    /*]]>*/
+	</script>
 	<div id="wrap">
 		<div id="section01">
 			<div class="top_menu_wrap">
@@ -41,7 +83,8 @@
 						<li>
 							<a href="/pointshop/pointshop">포인트상점</a>
 							<ul>
-								<li><a href="/pointshop/pointshop">상품 목록 리스트</a></li> <!-- 내부 리스트 -->
+								<li><a href="/pointshop/pointshop">상품 목록 리스트</a></li> 
+								<li><a href="/pointshop/purchaseHistory">구매 내역</a></li> 
 							</ul>
 						</li>
 						<li>
@@ -65,11 +108,11 @@
 							</ul>
 						</li>
 						<li>
-							<a href="/board/free_board">커뮤니티</a>
+							<a href="/board/board?boardChoice=0">커뮤니티</a>
 							<ul>
-								<li><a href="/board/free_board">자유게시판</a></li>
-								<li><a href="/board/trading_board">거래 게시판</a></li>
-								<li><a href="/board/tip_know-how">팁 OR 노하우</a></li>
+								<li><a href="/board/board?boardChoice=0">자유게시판</a></li>
+								<li><a href="/board/board?boardChoice=1">거래 게시판</a></li>
+								<li><a href="/board/board?boardChoice=2">팁 OR 노하우</a></li>
 							</ul>
 						</li>
 						<li>
@@ -82,65 +125,26 @@
 					</ul>
 				</div>
 			</div>
+			<div class="top_menu_bg">
+				<div class="div_inner"
+					style="background:url('https://ssl.nexon.com/s2/game/maplestory/renewal/common/top_menu_line.png') left top no-repeat;">
+				</div>
+			</div>
 			<div class="main_banner_wrap">
 				<ul class="main_banner">
-					<li>
+					<!-- 이벤트 반복문 -->
+					<li th:if="${!widEvent.empty}" th:each="event, state: ${widEvent}">
 						<div class="banner_img_con">
 							<div class="banner_img_wrap">
-								<a href="#" target="_blank">
-									<img src="/img/bg1.png"	alt="" />
+								<a th:href="@{/news/eventView(eventSeq=${event.eventSeq})}" target="_blank">
+									<img th:src="'/eventImage/'+${event.eventImageViewName}" alt="" /> <!-- 배경 이미지-->
 								</a>
 							</div>
 						</div>
 						<div class="div_inner main_banner_size">
-							<a href="#" target="_blank">
-								<h2>이벤트 1</h2>
-								<p>이벤트 기간 : 2023년 11월 23일(목) 점검 후 ~ 12월 20일(수) 오후 11시 59분</p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="banner_img_con">
-							<div class="banner_img_wrap">
-								<a href="#" target="_blank"><img
-										src="https://lwi.nexon.com/maplestory/banner/2023/1123/main_bn_231123_A6C5BC61259325E5.jpg"
-										alt="" /></a>
-							</div>
-						</div>
-						<div class="div_inner main_banner_size">
-							<a href="#" target="_blank">
-								<h2>이벤트 2</h2>
-								<p>이벤트 기간 : 2023년 11월 23일(목) 점검 후 ~ 12월 20일(수) 오후 11시 59분</p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="banner_img_con">
-							<div class="banner_img_wrap">
-								<a href="#" target="_blank"><img
-										src="https://lwi.nexon.com/maplestory/banner/2023/1123/main_bn_231123_A6C5BC61259325E5.jpg"
-										alt="" /></a>
-							</div>
-						</div>
-						<div class="div_inner main_banner_size">
-							<a href="#" target="_blank">
-								<h2>이벤트 3</h2>
-								<p>이벤트 기간 : 2023년 11월 23일(목) 점검 후 ~ 12월 20일(수) 오후 11시 59분</p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="banner_img_con">
-							<div class="banner_img_wrap">
-								<a href="#" target="_blank"><img
-										src="https://lwi.nexon.com/maplestory/banner/2023/1123/main_bn_231123_A6C5BC61259325E5.jpg"
-										alt="" /></a>
-							</div>
-						</div>
-						<div class="div_inner main_banner_size">
-							<a href="#" target="_blank">
-								<h2>이벤트 4</h2>
-								<p>이벤트 기간 : 2023년 11월 23일(목) 점검 후 ~ 12월 20일(수) 오후 11시 59분</p>
+							<a th:href="@{/news/eventView(eventSeq=${event.eventSeq})}" target="_blank">
+								<h2 th:text="${event.eventTitle}"></h2>
+								<p th:text="|이벤트 기간 : ${#dates.format(event.eventStartDate, 'yyyy-MM-dd (E) HH:mm')} 점검 후 ~ ${#dates.format(event.eventEndDate, 'yyyy-MM-dd (E) HH:mm')}|"></p>
 							</a>
 						</div>
 					</li>
@@ -157,49 +161,17 @@
 					</span>
 					<div class="pos_banner">
 						<div class="pos_move">
-							<dl><!-- 현지 이벤트 경로와 맞추기 -->
-								<dt>
-									<a href="#a" onclick="pos_click(0)"> <!--이미지 클릭 시 이동-->
-										<img src="https://lwi.nexon.com/maplestory/banner/2023/1123/sub_bn_231123_28172ECEDD83CE1C.jpg"
+							<!-- 반복문 추가 --><!-- 현지 이벤트 경로와 맞추기 -->
+							<dl th:if="${!widEvent.empty}" th:each="event, state: ${widEvent}"><!-- 현지 이벤트 경로와 맞추기 -->
+								<dt><!--<h1 th:text="${event.eventImageName}"></h1>-->
+									<a href="#a" th:onclick="'pos_click(' + ${state.index} + ')'"> <!--이미지 클릭 시 이동-->
+										<img th:src="'/eventImage/'+${event.eventImageName}"
 											 style="width:100px;height:40px;" alt="" />
-										<span class=pos_line></span> <!-- 해당 이벤트 클릭 시 노란 테두리 -->
+										<span class=pos_line></span>
 									</a>
 								</dt>
-								<dd><a href="#a" onclick="pos_click(0)">이벤트 1</a></dd> <!--이미지 내부 글 클릭 시 이동-->
+								<dd><a href="#a" th:onclick="'pos_click(' + ${state.index} + ')'" th:text="${event.eventTitle}"></a></dd> <!--이미지 내부 글 클릭 시 이동-->
 								<dd class="pos_on"></dd>
-							</dl>
-							<dl>
-								<dt>
-									<a href="#a" onclick="pos_click(1)"> 
-										<img src="https://lwi.nexon.com/maplestory/banner/2023/1123/main_bn_231123_A6C5BC61259325E5_thum.jpg"
-											 style="width:100px;height:40px;" alt="" />
-										<span></span>
-									</a>
-								</dt>
-								<dd><a href="#a" onclick="pos_click(1)">이벤트 2</a></dd>
-								<dd class="pos_off"></dd>
-							</dl>
-							<dl>
-								<dt>
-									<a href="#a" onclick="pos_click(2)">
-										<img src="https://lwi.nexon.com/maplestory/banner/2023/1123/main_bn_231123_A6C5BC61259325E5_thum.jpg"
-											 style="width:100px;height:40px;" alt="" />
-										<span></span>
-									</a>
-								</dt>
-								<dd><a href="#a" onclick="pos_click(2)">이벤트 3</a></dd>
-								<dd class="pos_off"></dd>
-							</dl>
-							<dl>
-								<dt>
-									<a href="#a" onclick="pos_click(3)">
-										<img src="https://lwi.nexon.com/maplestory/banner/2023/1123/main_bn_231123_A6C5BC61259325E5_thum.jpg"
-											 style="width:100px;height:40px;" alt="" />
-										<span></span>
-									</a>
-								</dt>
-								<dd><a href="#a" onclick="pos_click(3)">이벤트 4</a></dd>
-								<dd class="pos_off"></dd>
 							</dl>
 						</div>
 					</div>
@@ -228,43 +200,21 @@
 			<div class="event_all"> <!-- 중앙 윈도우 모양 클릭시 나오는 이벤트 리스트 -->
 				<!-- event_all_inner str -->
 				<div class="event_all_inner">
-					<h1 class="event_title"><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/event_title.png" alt=""></h1>
+					<h1 class="event_title">
+						<img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/event_title.png" alt="">
+					</h1>
 					<div class="event_all_bannerwrap">
 						<ul class="event_all_banner">
-							<li>
-								<a href="#"> <!-- 현지 이벤트 경로 잡아주기 -->
-									<img src="https://file.nexon.com/NxFile/download/FileDownloader.aspx?oidFile=4620732907474916057" alt="">
+							<!-- 이벤트 반복문 --> <!-- 현지 이벤트 경로 잡아주기 -->
+							<li th:if="${!widEvent.empty}" th:each="event, state: ${widEvent}">
+								<a th:href="@{/news/eventView(eventSeq=${event.eventSeq})}">
+									<img th:src="'/eventImage/'+${event.eventImageName}" alt="">
 								</a>
 								<dl>
-									<dt><a href="#">이벤트 1</a></dt> <!-- 현지 이벤트 경로 잡아주기 -->
-									<dd><a href="#">이벤트 기간 : 2023.11.30 (목) ~ 2023.12.06 (수) 오후 11시59분</a></dd>
-								</dl>
-							</li>
-							<li>
-								<a href="#">
-									<img src="https://file.nexon.com/NxFile/download/FileDownloader.aspx?oidFile=5485423997275345099" alt="">
-								</a>
-								<dl>
-									<dt><a href="#">이벤트 2</a></dt>
-									<dd><a href="#">이벤트 기간 : 2023.11.30 (목) ~ 2023.12.06 (수) 오후 11시59분</a></dd>
-								</dl>
-							</li>
-							<li>
-								<a href="#">
-									<img src="https://file.nexon.com/NxFile/download/FileDownloader.aspx?oidFile=5485423997275345099" alt="">
-								</a>
-								<dl>
-									<dt><a href="#">이벤트 3</a></dt>
-									<dd><a href="#">이벤트 기간 : 2023.11.30 (목) ~ 2023.12.06 (수) 오후 11시59분</a></dd>
-								</dl>
-							</li>
-							<li>
-								<a href="#"><img
-										src="https://file.nexon.com/NxFile/download/FileDownloader.aspx?oidFile=5485423997275345099"
-										alt=""></a>
-								<dl>
-									<dt><a href="#">이벤트 4</a></dt>
-									<dd><a href="#">이벤트 기간 : 2023.11.30 (목) ~ 2023.12.06 (수) 오후 11시59분</a></dd>
+									<dt><a th:href="@{/news/eventView(eventSeq=${event.eventSeq})}" th:text="${event.eventTitle}"></a></dt> <!-- 현지 이벤트 경로 잡아주기 -->
+									<dd><a th:href="@{/news/eventView(eventSeq=${event.eventSeq})}" 
+									th:text="|이벤트 기간 : ${#dates.format(event.eventStartDate, 'yyyy.MM.dd (E)')} 점검 후 ~ ${#dates.format(event.eventEndDate, 'yyyy.MM.dd (E) HH:mm')}|">
+									</a></dd>
 								</dl>
 							</li>
 						</ul>
@@ -285,8 +235,8 @@
 				<!-- event_all_inner end -->
 			</div>
 		</div>
-		<div id="section02">
-			<div class="div_inner">
+		<div id="section02"style="background-color: rgb(255, 128, 192);">
+			<div class="div_inner" >
 				<div class="rolling_event_wrap"> <!-- 게임시작 왼쪽 div -->
 					<dl>
 						<dt>
@@ -304,23 +254,21 @@
 				</div>
 				<span class="game_start">
 					<div class="gm_str_main_wrap">
-						<a href="#" onclick="alert('로그인 후 메이플ID 생성이 필요합니다.')"> <!-- 추후 게임 추가? -->
+						<a href="#" onclick="checkLogin()">
 							<img class="main_str_btn" src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/mp_start_btn_main.png" alt="" />
 						</a>
 					</div>
-					<span class="download">
-						<a href="#" target="_blank"> <!-- 나중에 회의-->
-							<img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/main_game_down.png" alt="" />
-						</a>
-					</span>
 				</span>
 				<th:block sec:authorize="isAuthenticated()">
 				<div class="none_char_id" >
-					<span class="none_char_bg"><img alt="대표캐릭터없음"
-							src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/none_char.png"></span>
+					<span class="none_char_bg"><!-- 대표캐릭터 남여 구분 -->
+					</span>
 					<span th:text="${member.nickName}" class="none_char_id_text"></span>
 					<ul class="id_set_two">
 						<li><a th:href="@{/mypage/mypage}">마이페이지</a></li>
+						<li sec:authorize="hasRole('ADMIN')">
+							<a href="/admin/report_admin">관리자페이지</a>
+						</li>
 					</ul>
 					<dl class="full_button">
 						<dt><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/cash.png" alt="캐시이미지" />
@@ -335,13 +283,8 @@
 				</th:block>
 				<th:block sec:authorize="isAnonymous()">
 				<div class="login">
-					<span><a href="/login"><img src="/img/로그인페이지 이동.png" alt="" /></a></span>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br><!-- css, hover 추가하기 -->
-					<span class="join_member"><a href="join/joinAgree">회원가입</a></span>
+					<span><a href="/login"><img src="/img/login.png" alt="" /></a></span>
+					<span class="join_member"><a href="join/joinAgree"><img src="/img/joinImg.png"></a></span>
 				</div>
 				</th:block>
 			</div>
@@ -352,13 +295,13 @@
 				<!--메인 캐시 배너-->
 				<div class="main_cash_bn">
 					<ul class="main_cash_con">
-						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/zzzz.png"
+						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/main/yoon.png"
 									alt="" /></a></li>
-						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/zzzz.png"
+						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/main/jang.png"
 									alt="" /></a></li>
-						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/zzzz.png"
+						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/main/ho.png"
 									alt="" /></a></li>
-						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/zzzz.png"
+						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/main/park.png"
 									alt="" /></a></li>
 						<li><a href="https://www.instagram.com/" target="_self"><img src="/img/zzzz.png"
 									alt="" /></a></li>
@@ -377,40 +320,13 @@
 				<div class="client_update_wrap2">
 					<div class="client_update2">
 						<ul>
-							<li class="s"> <!--공지사항 최근 4개 -->
+							<li class="s" th:each="notice : ${recentNotice}">
 								<dl>
-									<dt class="">공지</dt>
+									<dt class="" style="background-color: rgb(255, 128, 192);">공지</dt>
 									<dd class="title">
-										<a href="" target="_self">공지사항 1</a>
+										<a th:href="@{/news/noticeView(noticeSeq = ${notice.noticeSeq})}" target="_self" th:text="${notice.noticeTitle}"></a>
 									</dd>
-									<dd class="info">엔젤릭버스터 홍보물과 관련한 논란에 대해 사과드립니다.</dd>
-								</dl>
-							</li>
-							<li class="s">
-								<dl>
-									<dt class="">공지</dt>
-									<dd class="title">
-										<a href="" target="_self">공지사항 2</a>
-									</dd>
-									<dd class="info">11/23(목) 업데이트된 내용을 확인해주세요.</dd>
-								</dl>
-							</li>
-							<li class="s">
-								<dl>
-									<dt class="">공지</dt>
-									<dd class="title">
-										<a href="" target="_self">공지사항 3</a>
-									</dd>
-									<dd class="info">11/23(목) 엔젤릭버스터 리마스터 내용을 확인해주세요.</dd>
-								</dl>
-							</li>
-							<li class="s">
-								<dl>
-									<dt class="">공지</dt>
-									<dd class="title">
-										<a href="" target="_self">공지사항 4</a>
-									</dd>
-									<dd class="info">12/3(일)까지 배송정보를 입력해주세요.</dd>
+									<dd class="info"></dd>
 								</dl>
 							</li>
 						</ul>
@@ -419,40 +335,15 @@
 				<div class="client_update_wrap2">
 					<div class="client_update2">
 						<ul>
-							<li class="s">
+							<li class="s" th:each="board : ${topReco}">
 								<dl>
-									<dt class="">공지</dt>
+									<dt class="" style="background-color: rgb(255, 128, 192);">추천</dt>
 									<dd class="title">
-										<a href="자게 추천 top4-1" target="_self">th:text>> title_1</a>
+										<a th:href="@{/board/board_view(boardSeq=${board.boardSeq},boardChoice=${param.boardChoice}, page=${param.page}) }" 
+										target="_self"
+										th:text="|추천수 : ${board.boardRecommend} - ${board.boardTitle} |"></a>
 									</dd>
-									<dd class="info">엔젤릭버스터 홍보물과 관련한 논란에 대해 사과드립니다.</dd>
-								</dl>
-							</li>
-							<li class="s">
-								<dl>
-									<dt class="">공지</dt>
-									<dd class="title">
-										<a href="자게 추천 top4-2" target="_self">th:text>> title_2</a>
-									</dd>
-									<dd class="info">11/23(목) 업데이트된 내용을 확인해주세요.</dd>
-								</dl>
-							</li>
-							<li class="s">
-								<dl>
-									<dt class="">공지</dt>
-									<dd class="title">
-										<a href="자게 추천 top4-3" target="_self">th:text>> title_3</a>
-									</dd>
-									<dd class="info">11/23(목) 엔젤릭버스터 리마스터 내용을 확인해주세요.</dd>
-								</dl>
-							</li>
-							<li class="s">
-								<dl>
-									<dt class="">공지</dt>
-									<dd class="title">
-										<a href="자게 추천 top4-4" target="_self">th:text>> title_4</a>
-									</dd>
-									<dd class="info">12/3(일)까지 배송정보를 입력해주세요.</dd>
+									<dd class="info"></dd>
 								</dl>
 							</li>
 						</ul>
@@ -462,30 +353,5 @@
 		</div>
 		<div class="stick-ncc"></div>
 		<!-- footer str -->
-		<div id="footer" style="">
-			<div class="div_inner">
-				<div class="footer_info">
-					<ul>
-						<!--페이지 아래 태그 삭제-->
-					</ul>
-					<p>
-						<span>(주)E1I4S 대표이사</span>
-						<span style="margin-left:5px;">윤범헌 김예림 변장철 송경호 박현지</span>
-						<span style="margin-left:5px;">전화: 0000-0000</span>
-						<span>팩스:0502-258-8322</span>
-						<br />
-						<span>E-mail:xxxxxxx@xxxxxx.com</span>
-						<span style="margin-left:5px;">사업자등록번호 : xxx-xx-xxxxx호</span>
-						<span style="margin-left:5px;">통신판매업 신고번호 : 제2013-경기성남-1659호</span>
-					</p>
-					<span class="copyright">ⓒ NEXON Korea Corporation All Rights Reserved.</span>
-					<span class="footer_logo">
-						<a href="/" target="_blank"><img src="/img/zzzz.png" alt="" /></a>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- footer end -->
-	</div>
-</body>
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
 </html>

@@ -3,8 +3,6 @@ function checkInfoUpdate() {
    const regNickName = new RegExp(/^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,20}$/);
 
    /* 휴대폰 번호 형식*/
-   const regPhoneNumber = new RegExp(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/);
-
    const regEmail = new RegExp(/^[a-z0-9\.\-_]/);
    const regDomain = new RegExp(/([a-z0-9\-]+\.)+[a-z]{2,6}$/);
 
@@ -15,16 +13,9 @@ function checkInfoUpdate() {
       alert("닉네임은 2 ~ 20글자")
       document.infoUpdateForm.nickName.focus();
    }
-   else if (document.infoUpdateForm.phoneNumber.value == "") {
-      alert("전화번호를 입력하세요~");
+    else if (document.infoUpdateForm.checkPhoneNumber1.style.display != "none"){
+      alert("중복확인")
       document.infoUpdateForm.phoneNumber.focus();
-   } else if (regPhoneNumber.test(document.infoUpdateForm.phoneNumber.value) != true) {
-      alert("정확한 번호를 입력해 주세요")
-      document.infoUpdateForm.phoneNumber.focus();
-   }
-   else if (document.infoUpdateForm.birth.value == "") {
-      alert("생년월일을 입력하세요~");
-      document.infoUpdateForm.birth.focus();
    }
    else if (document.infoUpdateForm.email.value == "") {
       alert("이메일을 입력하세요~");
@@ -51,11 +42,14 @@ function checkInfoUpdate() {
       document.infoUpdateForm.detailAddress.focus();
    }
    else {
+      document.infoUpdateForm.addr.value = document.infoUpdateForm.postcode.value + "/" + document.infoUpdateForm.address.value + "/" 
+                                 + document.infoUpdateForm.detailAddress.value + "/" + document.infoUpdateForm.extraAddress.value;
       document.infoUpdateForm.submit();
+      alert("회원정보가 변경되었습니다.");
    }
 }
 
-function checkInfoUpdate() {
+function checkInfoPwdUpdate() {
 
    /* pw : 최소 8자리, 숫자,문자,특수문자 최소 1개 */
    const regPw = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/);
@@ -72,5 +66,6 @@ function checkInfoUpdate() {
       document.infoPwdUpdateForm.repassword.focus();
    } else {
       document.infoPwdUpdateForm.submit();
+      alert("비밀번호가 변경되었습니다.");
    }
 }

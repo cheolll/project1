@@ -16,17 +16,19 @@ import com.web.domain.Inquery;
 import com.web.persistence.GuideRepository;
 
 @Service
-public class GuideServiceImpl implements GuideService{
+public class GuideServiceImpl implements GuideService, FolderPathREPO{
 
 	@Autowired
 	private GuideRepository guideRepo;
 	
+	// 가이드 목록
 	@Override
 	public void getGuideList(Model model, Guide guide){
 		List<Guide> guideList = (List<Guide>)guideRepo.findAll(); 
 		model.addAttribute("guideList", guideList);
 	}
 	
+	// 가이드 등록
 	@Override
 	public void insertGuide(MultipartHttpServletRequest mul) {
 		Guide guide = new Guide();
@@ -55,30 +57,46 @@ public class GuideServiceImpl implements GuideService{
 		guideRepo.save(guide); 
 	}
 	
+	// 가이드 보기
 	@Override
 	public void getGuide(Long guideNum, Model model) {
 		Guide guide = guideRepo.findById(guideNum).get();
 		model.addAttribute(guide);
 	}
 	
+	// 가이드 수정
 	@Override
-	public void updateGuide(Guide guide) {
-		Guide findGuide = guideRepo.findById(guide.getGuideNum()).get(); // 수정하기 전의 본래의 내용 가져옴(?)
+	public void updateGuide(MultipartHttpServletRequest mul) {
+		long guideNum = Long.parseLong(mul.getParameter("guideNum"));
+		Guide findGuide = guideRepo.findById(guideNum).get(); // 수정하기 전의 본래의 내용 가져옴(?)
 		
-		findGuide.setGuideTitle(guide.getGuideTitle()); // 수정한 제목을 가져와서 세팅함.
-		findGuide.setGuideContents(guide.getGuideContents()); // 수정한 내용을 가져와서 세팅함.
-		guideRepo.save(guide); // DB에 반영시킴.
+		findGuide.setGuideTitle(mul.getParameter("guideTitle")); // 수정한 제목을 가져와서 세팅함.
+		findGuide.setGuideContents(mul.getParameter("guideContents")); // 수정한 내용을 가져와서 세팅함.
+		
+		MultipartFile file = mul.getFile("file");
+		
+		if(file.getSize() !=0) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss-");
+			Calendar calendar = Calendar.getInstance();
+			String sysFileName = sdf.format(calendar.getTime());
+			sysFileName += file.getOriginalFilename();
+			File saveFile = new File(GUIDE_IMAGE_REPO + "/" + sysFileName); 
+			findGuide.setGuideImageName(sysFileName);
+			try {
+				file.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			findGuide.setGuideImageName("nan");
+		}
+		guideRepo.save(findGuide); // DB에 반영시킴.
 	}
 	
+	// 가이드 삭제
 	@Override
 	public void deleteGuide(Guide guide) {
 		guideRepo.deleteById(guide.getGuideNum()); 
 	}
 
-	@Override
-	public void updateGuideForm(Model model, Long GuideNum) {
-		Guide guide = guideRepo.findById(GuideNum).get();
-		model.addAttribute("guide", guide);
-	}
-	
 }

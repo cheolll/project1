@@ -19,25 +19,31 @@ import lombok.ToString;
 @Table(name="GUIDE")
 public class Guide {
 	
+	// 가이드 글 번호 - 기본키
 	@Id
 	@GeneratedValue
 	@Column(name="GUIDE_NUM")
-	private Long guideNum; // 가이드 글 번호 -- 기본키
+	private Long guideNum; 
 	
-	@Column(name="GUIDE_WRITER", nullable = false, updatable = false) // 외래키(관리자ID)
+	// 외래키(관리자ID)
+	@Column(name="GUIDE_WRITER", nullable = false, updatable = false) 
 	private String guideWriter; // 작성자(관리자)
 	
+	// 제목
 	@Column(name="GUIDE_TITLE", nullable = false)
-	private  String guideTitle; // 제목
+	private  String guideTitle; 
 	
+	// 내용
 	@Column(name="GUIDE_CONTENTS", nullable = false)
-	private  String guideContents; // 내용
+	private  String guideContents; 
 	
+	// 가이드 사진
 	@Column(name="GUIDE_IMAGENAME")
-	private String guideImageName; // 가이드 사진
+	private String guideImageName;
 	
+	// 작성일자
 	@Column(name="GUIDE_DATE", insertable = false, updatable = false, columnDefinition = "date default sysdate")
-	private Date guideDate; // 작성일자
+	private Date guideDate; 
 	
 
 }

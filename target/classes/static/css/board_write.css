@@ -31,23 +31,25 @@
     min-width: 67px;
     position: relative;
 }
+
 table{
-	border: 1px solid #e3e3e3;
 	width: 820px;
+	background-color: white;
 }
 th{
 	width: 60px;
+	background-color: rgb(241, 219, 76);
 }
 td ,tr{
-	border: 1px solid #e3e3e3;
+	border: 1.2px solid rgb(196, 196, 196);
 }
 
 .button{
 	margin-top: 10px;
+	float: right;
 }
 
 .button_b{ 
-	float: right;
     text-align: right;
     margin-top: 15px;
     margin-right: 10px;
@@ -58,7 +60,6 @@ td ,tr{
 	border-radius:2px; 
 	padding:10px 14px 10px 14px; 
 	border:1px solid #455d9d;
-	display:block;
 	line-height:1
 }
 

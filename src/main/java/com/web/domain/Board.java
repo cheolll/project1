@@ -47,21 +47,22 @@ public class Board {
 	@Column(name = "BOARD_CONTENTS")
 	private String boardContents; // 내용
 	
-	@Column(name = "BOARD_VIEWS", insertable = false, updatable = false, columnDefinition = "number default 0")
+	@Column(name = "BOARD_VIEWS", insertable = false, columnDefinition = "number default 0")
 	private int boardViews; // 조회수
 	
-	@Column(name = "BOARD_RECOMMEND",insertable = false, updatable = false, columnDefinition = "number default 0")
+	@Column(name = "BOARD_RECOMMEND",insertable = false,columnDefinition = "number default 0")
 	private int boardRecommend; // 추천수
 	
 	@Column(name = "BOARD_DATE",insertable = false, updatable = false, columnDefinition = "date default sysdate")
 	private Date boardDate; // 작성날짜(SYSDATE)
 	
 	@Column(name = "BOARD_CHOICE")
-	private int boardChoice; // 게시판선택
+	private Long boardChoice; // 게시판선택
 	
 	@Column(name = "BOARD_COMMENT")
 	private String boardComment; // 댓글
 	
-
+	@Column(name = "REPORT_FILENAME")
+	private String file; 
 	
 }

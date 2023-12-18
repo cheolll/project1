@@ -1,8 +1,8 @@
+/* Guide.css */
+/* 기초 가이드 */
+
 element.style {
     margin-top: 20px;
-}
-.main_wrap{
-	
 }
 .title {
     float: left;
@@ -28,7 +28,7 @@ element.style {
     font-family: "NanumBarunGothic" , "Malgun Gothic" , sans-serif;
     letter-spacing: -0.03em;
 }
-user agent stylesheet
+
 h1 {
     display: block;
     margin-block-start: 1em;
@@ -52,10 +52,11 @@ em {
 	margin-bottom: 100px;
 }
 
+
+/* 버튼 */
 .button{
 	margin-top: 10px;
 }
-
 .button_b{ 
 	float: right;
     text-align: right;
@@ -71,6 +72,12 @@ em {
 	display:block;
 	line-height:1
 }
-
 .button_b:hover{background-color:#324b90; border:1px solid #324b90;}
- 
+
+
+/* 가이드 이미지 */
+.guideImg {
+	max-width: 100%;
+    line-height: 1.3;
+    min-height: 36px;
+}

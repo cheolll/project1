@@ -2,27 +2,35 @@ package com.web.service;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.web.domain.Member;
 import com.web.domain.PointShop;
 
 public interface PointShopSerivce {
 	
-	public static final String PRODUCT_IMAGE ="D:\\resource\\spring_boot\\workspace\\E1I4S\\src\\main\\resources\\static\\productImage";
-	
-	public void getProductList(Model model, PointShop pointShop, Pageable pageable);
-
 	void insertProduct(MultipartHttpServletRequest mul);
 	
-	void getProduct(Long productNumber, Model model);
+	public void getProductList(Model model, PointShop pointShop, Pageable pageable,  String searchKeyword);
 	
-	void updateProduct(PointShop pointShop);
+	int getProduct(Long productNumber, Model model);
 	
-	void deleteProduct(PointShop pointShop);
+	void updateProduct(MultipartHttpServletRequest mul);
 	
-	void purchaseProduct(PointShop pointShop);
+	void deleteProduct(Long productNumber);
+	
+	void getProductinfo(Long productNumber, Member member, Model model);
+	
+	void purchaseProduct(Long productNumber, Member member, String ckeckEmail, int quantity);
+
+	void getHistoryList(Model model, Pageable pageable,  String searchKeyword, Member member);
+	
 }

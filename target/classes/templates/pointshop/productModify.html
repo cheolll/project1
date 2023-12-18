@@ -1,378 +1,82 @@
-<!doctype html>
-<html xmins:th="http://www.thymeleaf.org">
-<!--수정 후 다시-->
-<head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>신고 | 고객지원 | 메이플스토리</title>
-	<link rel="stylesheet" href="https://lwres.nexon.com/css/maplestory/sub_new.css" type="text/css" />
-	<link rel="stylesheet" href="https://lwres.nexon.com/css/maplestory/jquery.mCustomScrollbar.css" type="text/css" />
-	<script src="https://ssl.nexon.com/s1/p2/ps.min.js" charset="utf-8" data-name="PS" data-ngm="true"
-		data-nxlogin="true"></script>
-	<script src="https://ssl.nexon.com/s1/global/ngb_head.js"></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<!-- header end -->
+<div class="mnb_wrap">
+	<div class="div_inner2">
+		<ul class="mnb_list">
+			<li><a href="/pointshop/pointshop">포인트 상점</a></li>
 
-	<script src="https://lwres.nexon.com/js/maplestory/jquery-1.12.4.min.js" type="text/javascript"></script>
-	<script src="https://lwres.nexon.com/js/maplestory/jquery-ui.js"></script>
-	<script src="https://lwres.nexon.com/js/maplestory/sub_new.js" type="text/javascript"></script>
-	<script src="https://lwres.nexon.com/js/maplestory/jquery.mCustomScrollbar.concat.min.js"
-		type="text/javascript"></script>
-
-	<script src="/resources/js/common.js?v=202312010650"></script>
-	<script src="/resources/js/webboard.js?v=202312010650"></script>
-
-	<script>
-		var COMMON = (function () {
-			var instance;
-
-			function initiate() {
-				return {
-					site: 'nope',
-					domain: 'maplestory.nexon.com',
-					url: 'https://maplestory.nexon.com/Support/BugReport/Create',
-					oid: '286039160',
-					isLogin: true,
-					isMembership: true,
-					isParentLogin: true,
-					isParentMembershipLogin: true,
-					isChannelingNotAgree: false,
-					articleSearchDescriptor: {},
-					maxTitleLength: 35,
-					maxCommentLength: 200
-				};
-			}
-
-			if (!instance) instance = initiate();
-			return instance;
-		}());
-
-		$(window).load(function () {
-			var commonMessage = '';
-			if (commonMessage !== '')
-				alert(commonMessage);
-		});
-	</script>
-	<link rel="stylesheet" href="https://lwres.nexon.com/css/maplestory/Common/Editor/editor.css" type="text/css"
-		media="all" />
-	<script src="https://lwres.nexon.com/js/maplestory/Common/Editor/imageEditorUtil.js"></script>
-	<script src="https://lwres.nexon.com/js/maplestory/Common/Editor/ngb_Editor.js"></script>
-
-
-	<style>
-		.selectImageuploader {
-			z-index: 99;
-		}
-		#inqTa {
-			resize: none;
-		}
-		
-	</style>
-	<script>
-		$(function () {
-			chg_seal();
-		});
-		$(document).ready(function (e) {
-			var $warning_malware = $("#warning_malware"),
-				$warning_bug = $("#warning_bug"),
-				warning_malware_message = '<div><p style="margin - top: 10px; color: rgb(51, 51, 51); font - family: Arial, sans - serif; font - size: 14px; background - color: rgb(255, 255, 255); "><b>&lt;불법프로그램 신고&gt;<br>1. 어떤 불법프로그램인가요? 이 불법프로그램을 사용하면 어떻게 되나요?</b></p><p style="margin - top: 10px; color: rgb(51, 51, 51); font - family: Arial, sans - serif; font - size: 14px; background - color: rgb(255, 255, 255); "><br><b>2. 이 불법프로그램을 언제, 어디서 얻게 됐나요? 인터넷으로 얻었다면 그 사이트는 어디인가요?</b></p><p style="margin - top: 10px; color: rgb(51, 51, 51); font - family: Arial, sans - serif; font - size: 14px; background - color: rgb(255, 255, 255); "><br><b>3. 가지고 있는 불법프로그램은 첨부 \'파일첨부\' 기능을 사용해서 추가해주세요.</b></p><p style="margin - top: 10px; color: rgb(51, 51, 51); font - family: Arial, sans - serif; font - size: 14px; background - color: rgb(255, 255, 255); "><br></p></div>',
-				warning_bug_message = '<div><p style="margin-top: 10px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"><b>&lt;버그악용신고&gt;<br>1. 어떤 버그인가요? 버그를 사용하면 어떻게 되나요?</b></p><p style="margin-top: 10px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"><br><b>2. 버그를 처음 발견한 시간이나, 언제부터 버그가 발생했는지 구체적으로 알려주세요.</b><br>(Ex. 2021년 9월 1일 오전 10시 or 클라이언트 1.2.352 이후 or 불확실)</b></p><p style="margin-top: 10px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"><br><b>3. 어떻게 하면 그 버그를 사용할 수 있나요? 자세히 알려주세요. 만약 버그 사용방법을 잘 모른다면</b><br><b>의심되는 방법은 뭔가요?</b></p><p style="margin-top: 10px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"><br><b>4. 버그를 사용한 캐릭터명은 뭔가요?</b></p><p style="margin-top: 10px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"><br><b>5. 참고할만한 스크린샷이 있으면 "이미지 첨부"기능을 사용해서 함께 넣어주세요.</b></p><p style="margin-top: 10px; color: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);"><br></p></div>';
-
-			//첫 로드
-			$warning_bug.hide();
-
-			$(".sort_wrap2 select").bind("change", function (e) {
-				var currentVal = $(this).val();
-				if (currentVal === "2") {
-					$warning_malware.show();
-					$warning_bug.hide();
-					$("#editWindow").contents().find('body').html(warning_malware_message);
-				}
-				else if (currentVal === "1") {
-					$warning_malware.hide();
-					$warning_bug.show();
-					$("#editWindow").contents().find('body').html(warning_bug_message);
-				}
-			});
-		});
-		function onUploadComplete(filename, oid) {
-			$('.file_addr').html(filename);
-			$('input[name=attachFileSN]').val(oid);
-			$('input[name=attachFileName]').val(filename);
-		}
-		function onUploadCancel() {
-			//alert('취소되었습니다.');
-		}
-		$(window).load(function () {
-			mnb_setting();
-		});
-	</script>
-</head>
-
-<body>
-
-
-	<script>
-		$(document).ready(function () {
-			$('.sel_login_btn a:eq(0)').bind('click', function (e) {
-				e.preventDefault();
-				LOGIN.changeID();
-			});
-			$('.sel_login_btn a:eq(1)').bind('click', function (e) {
-				e.preventDefault();
-				close_login_pop();
-			});
-		});
-	</script>
-	<div class="login_popup_wrap">
-		<div class="login_popup2">
-			<h1><span><a href="javascript:void(0)"><img
-							src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/login_pop_h1.png"
-							alt="다른 메이플ID로 로그인" /></a></span></h1>
-			<div class="login_popup_con">
-				<p>다른 메이플ID로 로그인 하시려면 아래의 ID중 하나를 선택하시기 바랍니다.</p>
-				<div class="sel_login_id">
-				</div>
-				<div class="bnarea">
-					<p class="icoinfo">
-						<input type="checkbox" name="chkMaster" /> <label for="che">앞으로 이 메이플ID로 로그인 하겠습니다.</label>
-					</p>
-				</div>
-				<div class="sel_login_btn">
-					<a href="#a"><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/sel_login_btn.png"
-							alt="선택한 메이플ID로 로그인" /></a>
-					<a href="#a"><img
-							src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/rank_pop_close_btn.png"
-							alt="닫기" /></a>
-				</div>
-			</div>
-		</div>
+			<li><a href="/pointshop/purchaseHistory">구매내역</a></li>
+		</ul>
 	</div>
-
-
-
-	<div id="wrap">
-		<!-- header str -->
-		<div id="header_support">
-			<div class="sub_banner_wrap">
-				<img src="https://lwi.nexon.com/maplestory/common/visual/sub_visual_support.jpg" alt="" />
-			</div>
-			<div class="top_menu_wrap">
-				<div class="div_inner">
-					<h1 class="logo"><a href="/Home/Main"><img src="resources/img/logo3n.png" alt="" /></a></h1>
-					<ul class="top_menu">
-						<li>
-							<a href="/pointshop/pointshop">포인트상점</a>
-							<ul>
-								<li><a href="/pointshop/pointshop">상품 목록 리스트</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="/news/notice">뉴스</a>
-							<ul>
-								<li><a href="/news/notice">공지사항</a></li>
-								<li><a href="/news/event">이벤트</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="/guide/guide">가이드</a>
-							<ul>
-								<li><a href="/guide/guide">기초 가이드</a></li>
-								<li><a href="/guide/character">캐릭터 소개</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="/rank/rank">랭킹</a>
-							<ul>
-								<li><a href="/rank/rank">랭킹 게시판</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="/board/free_board">커뮤니티</a>
-							<ul>
-								<li><a href="/board/free_board">자유게시판</a></li>
-								<li><a href="/board/trading_board">거래 게시판</a></li>
-								<li><a href="/board/tip_know-how">팁 OR 노하우</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="/support/report_1_1">고객지원</a>
-							<ul>
-								<li><a href="/support/report_1_1"></span>1:1문의</a></li>
-								<li><a href="/support/report_bug">신고</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="div_inner">
-				<div class="board_name">
-					<span class="sub_logo"><img
-							src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/category_icon22.png"
-							alt=""></span>
-					<h2>상품 수정</h2>
-				</div>
-				<script>
-					function NaverChannelingEndInformationPop() {
-						var xPos = (document.body.clientWidth / 2) - (700 / 2);
-						xPos += window.screenLeft;
-						var yPos = (screen.availHeight / 2) - (400 / 2);
-						var pop = window.open('/News/Popup/2020/NaverChannelingEnd', 'NaverChannelingEndInformation', 'toolbar=no, scrollbars=yes, width=700, height=400, left=' + xPos + ', top=' + yPos);
-						if (pop === null) {
-							alert('2020년 12월 1일 메이플스토리의 네이버 채널링 서비스가 종료됩니다.\n2020년 10월 30일부터 네이버 채널링 서비스 신규 가입을 하실 수 없습니다.');
-						}
-					}            
-				</script>
-				<div class="sub_login_wrap">
-					<div class="sub_login_con">
-						<div class="sub_login_info">
-							<div class="sub_login_info_wrap">
-								<span class="sub_user_name">헌쭁</span>
-								<span class="sub_user_word">리부트</span>
-								<span class="sub_user_job">아델</span>
-							</div>
+</div>
+<!-- container str -->
+<div id="container">
+	<!-- div_inner str -->
+	<div class="div_inner">
+		<!-- notice_wrap str -->
+		<div class="contents_wrap2">
+			<form action="/pointshop/update" method="post" enctype="multipart/form-data">
+				<input type="hidden" id="adminId" name="adminId" value="작성자1"><!--작성자 정보 세션으로 가져오기-->
+				<input type="hidden" id="productNumber" name="productNumber"
+					th:value="${product.productNumber}"><!--작성자 정보 세션으로 가져오기-->
+				<h1 class="con_title">
+					상품수정
+				</h1>
+				<div class="seal_tb2">
+					<div class="seal_col">
+						<div class="th">상품 이름 </div>
+						<div class="td"> &nbsp;
+							<span>상품번호 : </span><strong th:text="${product.productNumber}"></strong>
+							<input type="text" name="productName" class="seal_title"
+								th:value="${product.productName}" /><!--상품 이름-->
 						</div>
-						<ul class="id_set_two">
-							<li><a href="/MyMaple/Profile">마이메이플</a></li>
-							<li><a href="/Common/Search/Community/Writer?w=%ed%97%8c%ec%ad%81" target="_blank">내가 쓴
-									글</a></li>
-						</ul>
-						<span class="sub_log_out"><a href="javascript:void(0)" onclick="NgbLogin.Logout();"
-								onmouseover="ch_png_on(this)" onmouseout="ch_png_off(this)"><img
-									src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/sub_logout_off.png"
-									alt=""></a></span>
 					</div>
-					<span class="sub_login_char"><img
-							src="https://avatar.maplestory.nexon.com/Character/180/KIABPANLGNMGOEGBKBDJOCPMICMPEJPEKKNKGHLFABNMAMIMBKIMOALGMDMDEFJEPKKLINNDDPHJGLGFNKHAGJFBNJFICNJAOFODEPMKJACNJDCCPJBPAIPLEJAFBCBIFKIEJKJPHMCOGOIBHHHJCJOBAELENILKLDOLPBPBGPOJKEJGBEMEBKBOPKHDPFIGABJMAIHOMFADCKJOLLFGHLCAAHJMIFPLOIHKEKFINIOKMNJBGHBJMHOIEHDMABHE.png"
-							onerror="this.src='https://ssl.nexon.com/s2/game/maplestory/renewal/common/none_char.png'"
-							alt=""></span>
-				</div>
-				<script>
-					$(function () {
-						login_after_info();
-					});
-				</script>
-				<span class="game_start">
-					<div class="gm_str_main_wrap">
-						<a href="javascript:void(0)"
-							onclick="gtag_report_conversion(); PLATFORM.LaunchGame('45'); gtag('event', '버튼클릭', { 'event_category': '게임시작', 'event_label': '전체페이지' }); gameStart_Criteo();"><img
-								class="main_str_btn"
-								src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/mp_start_btn_sub.png"
-								alt="" /></a>
+					<div class="seal_col">
+						<div class="th price">가격</div>
+						<div class="td">
+							<input type="text" name="productPoint" class="seal_title"
+								th:value="${product.productPoint}" /> <!--상품 가격-->
+						</div>
 					</div>
-					<span class="download"><a href="/Common/PDS/Download" target="_blank"><img
-								src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/sub_game_down.png"
-								alt="" /></a></span>
-				</span>
-			</div>
-			<div class="top_menu_bg">
-				<div class="div_inner"
-					style="background:url('https://ssl.nexon.com/s2/game/maplestory/renewal/common/top_menu_line.png') left top no-repeat;">
+					<div class="seal_col">
+						<div class="th price">재고</div>
+						<div class="td">
+							<input type="text" name="productInventory" class="seal_title"
+								th:value="${product.productInventory}" /> <!--상품 가격-->
+						</div>
+					</div>
+					<div class="seal_col">
+						<div class="th">파일첨부</div>
+						<div class="td">
+							<input type="file" name="productImage">
+							<span class="file_size">최대 파일용량 : 5MByte</span>
+						</div>
+					</div>
+					<div class="seal_col">
+						<div class="th title">내용</div>
+						<div class="td">
+							<textarea class="seal_text_area" id="productContents" name="productContents"
+								th:text="${product.productContents}"></textarea><!--내용-->
+						</div>
+					</div>
 				</div>
-			</div>
-			<!-- event_bg str -->
-			<div class="event_bg">
-				<!-- div_inner str -->
-				<div class="div_inner">
-					<ul class="event_all_pos">
-						<li><a href="#a" onclick="img_click(this)" onmouseover="img_on(this)"
-								onmouseout="img_out(this)"><img
-									src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/pos_event_on.png"
-									alt="" class=click_img /></a></li>
-						<li><a href="#a" onclick="img_click(this)" onmouseover="img_on(this)"
-								onmouseout="img_out(this)"><img
-									src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/pos_event_off.png"
-									alt="" /></a></li>
-					</ul>
-					<span class="event_close"><a href="#a" onclick="event_onoff()"><img
-								src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/event_close.png"
-								alt="" /></a></span>
+				<div class="bug_btn_wrap" th:align="right">
+					<input class="btn03_b" type="submit" value="확인" onclick="alert('수정되었습니다')">
+					<input class="btn03_b" type="reset" value="다시 작성">
+					<button class="btn03_g" type="button" onclick="alert('삭제 완료')">
+						<a th:href="@{/pointshop/productDelete(productNumber=${product.productNumber})}">삭제</a>
+					</button>
 				</div>
-				<!-- div_inner end -->
-			</div>
-			<!-- event_bg end -->
-
+			</form>
 		</div>
-		<!-- header end -->
-
-	
-		<div class="mnb_blank"></div>
-		<!-- container str -->
-		<div id="container">
-			<!-- div_inner str -->
-			<div class="div_inner">
-				<!-- notice_wrap str -->
-				<div class="contents_wrap2">
-					<form action="/pointShop/modify" method="post" enctype="multipart/form-data">
-						<input type="hidden" id="adminId" name="adminId" th:value="${pointShop.adminId}"><!--작성자 정보 세션으로 가져오기--> 
-					<h1 class="con_title">
-						상품수정
-					</h1>
-					<div class="seal_tb2">
-						<div class="seal_col">
-							<div class="th">상품 이름 </div> 
-							<div class="td"> &nbsp;
-								 <span>상품번호</span>
-								<input type="text" name="productName" class="seal_title" th:value="${pointShop.productName}"/><!--상품 이름-->
-							</div>
-						</div>
-						<div class="seal_col">
-							<div class="th price">가격</div>
-							<div class="td"> &nbsp;
-								 <span>재고</span>
-								<input type="text" name="inqueryTitle" class="seal_title"/>	<!--상품 가격-->
-							</div>
-						</div>
-						<div class="seal_col">
-							<div class="th">파일첨부</div>
-							<div class="td">
-								<input type="file" name="file">
-								<span class="file_size">최대 파일용량 : 5MByte</span>
-							</div>
-						</div>
-						<div class="seal_col">
-							<div class="th title">내용</div>
-							<div class="td">
-									<textarea class="seal_text_area" id="inqueryContent" name="inqueryContent"></textarea><!--내용-->
-							</div>
-						</div>
-					</div>
-					<div class="bug_btn_wrap">
-						<input class="btn03_g" type="submit" value="확인">
-						<input class="btn03_b" type="reset" value="다시 작성">
-					</div>
-					</form>
-				</div>
-				<!-- notice_wrap end -->
-			</div>
-			<!-- div_inner end -->
-		</div>
-		<!-- container end -->
-				<!-- footer str -->
-		<div id="footer" style="">
-			<div class="div_inner">
-				<div class="footer_info">
-					<ul>
-						<!--페이지 아래 태그 삭제-->
-					</ul>
-					<p>
-						<span>(주)E1I4S 대표이사</span>
-						<span style="margin-left:5px;">윤범헌 김예림 변장철 송경호 박현지</span>
-						<span style="margin-left:5px;">전화: 0000-0000</span>
-						<span>팩스:0502-258-8322</span>
-						<br />
-						<span>E-mail:xxxxxxx@xxxxxx.com</span>
-						<span style="margin-left:5px;">사업자등록번호 : xxx-xx-xxxxx호</span>
-						<span style="margin-left:5px;">통신판매업 신고번호 : 제2013-경기성남-1659호</span>
-					</p>
-					<span class="copyright">ⓒ NEXON Korea Corporation All Rights Reserved.</span>
-					<span class="footer_logo">
-						<a href="/" target="_blank"><img src="resources/img/zzzz.png" alt="" /></a>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- footer end -->
+		<!-- notice_wrap end -->
 	</div>
-
-</body>
+	<!-- div_inner end -->
+</div>
+<!-- container end -->
+<!-- footer str -->
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
 
 </html>

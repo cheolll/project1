@@ -29,7 +29,7 @@ public class Member {
 	private String name;
 	private String nickName;
 	private String phoneNumber;
-	private Date birth;
+	private String socialSecuNum;	// 주민번호 전체
 	private String email;
 	private String domain;
 	private String addr;
@@ -38,10 +38,10 @@ public class Member {
 	private Role role;
 	
 	@Column(columnDefinition = "number default 0")
-	private Long point;
+	private int point;
 	
 	@Column(columnDefinition = "number default 0")
-	private Long totalPoint;
+	private int totalPoint;
 	
 	private boolean enabled;
 	

@@ -10,5 +10,7 @@ public interface InqueryRepository extends JpaRepository<Inquery, Long>{
 	Page<Inquery> findByInqueryWriter(Pageable pageable, String userId);
 	Page<Inquery> findByInquerySelectAndInqueryTitleContainingAndInqueryAnswerIsNull(Pageable pageable, String inquerySelect, String searchKeyword1);
 	Page<Inquery> findByInquerySelectAndInqueryAnswerIsNull(Pageable pageable, String inquerySelect);
+	Page<Inquery> findByInqueryTitleContainingAndInqueryAnswerIsNotNull(Pageable pageable, String searchKeyword1);
+	Page<Inquery> findByInqueryAnswerIsNotNull(Pageable pageable);
 	
 }
